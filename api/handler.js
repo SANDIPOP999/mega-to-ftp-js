@@ -1,12 +1,11 @@
-const { Downloader } = require('megajs');
+const { File } = require('megajs');
 const ftp = require('basic-ftp');
 
-// Hard-coded FTP credentials
 const FTP_CREDENTIALS = {
     host: "upload24.vidoza.net",
     user: "hipanime",
     password: "3b4f17fce0d7b7dca085a86c0452a191",
-    secure: false, // Set to true if you require secure FTP
+    secure: false, // Set to true if secure FTP is required
 };
 
 export default async function handler(req, res) {
@@ -21,16 +20,18 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Download the file from Mega
-        const mega = Downloader.fromURL(megaLink);
+        // Parse the Mega file link
+        const megaFile = File.fromURL(megaLink);
+
+        // Download the file
         const fileBuffer = await new Promise((resolve, reject) => {
             const chunks = [];
-            mega.on('data', chunk => chunks.push(chunk));
-            mega.on('end', () => resolve(Buffer.concat(chunks)));
-            mega.on('error', reject);
+            megaFile.download().on('data', (chunk) => chunks.push(chunk));
+            megaFile.download().on('end', () => resolve(Buffer.concat(chunks)));
+            megaFile.download().on('error', reject);
         });
 
-        // Connect to the FTP server and upload the renamed file
+        // Upload to FTP
         const ftpClient = new ftp.Client();
         await ftpClient.access(FTP_CREDENTIALS);
 
@@ -39,6 +40,6 @@ export default async function handler(req, res) {
 
         res.status(200).send({ message: 'File uploaded successfully with the new name!' });
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        res.status(500).send({ error: `Failed to process the request: ${error.message}` });
     }
 }
