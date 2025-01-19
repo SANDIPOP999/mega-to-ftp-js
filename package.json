@@ -2,16 +2,21 @@
   "name": "mega-to-ftp-service",
   "version": "1.0.0",
   "description": "A Vercel web service that downloads files from Mega and uploads them to an FTP server.",
-  "main": "/api/handler.js",
+  "main": "index.js",
   "scripts": {
-    "start": "vercel dev"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
+    "next": "^13.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "megajs": "^1.3.1",
     "basic-ftp": "^5.0.2"
   },
   "devDependencies": {},
-  "keywords": ["vercel", "mega", "ftp", "file-upload"],
+  "keywords": ["vercel", "nextjs", "mega", "ftp", "file-upload"],
   "author": "Anonymous-Kun",
   "license": "MIT"
 }
