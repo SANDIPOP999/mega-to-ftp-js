@@ -3,9 +3,9 @@ const ftp = require('basic-ftp');
 
 // Hard-coded FTP credentials
 const FTP_CREDENTIALS = {
-    host: "ftp.yourserver.com",
-    user: "fixed_username",
-    password: "fixed_password",
+    host: "upload24.vidoza.net",
+    user: "hipanime",
+    password: "3b4f17fce0d7b7dca085a86c0452a191",
     secure: false, // Set to true if you require secure FTP
 };
 
