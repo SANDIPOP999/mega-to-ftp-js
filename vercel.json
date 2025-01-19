@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     { "src": "api/handler.js", "use": "@vercel/node" },
-    { "src": "pages/index.js", "use": "@vercel/next" }, 
+    { "src": "pages/index.js", "use": "@vercel/static" }, 
     { "src": "package.json", "use": "@vercel/next" }
   ],
   "routes": [
